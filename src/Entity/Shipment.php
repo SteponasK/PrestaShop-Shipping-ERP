@@ -21,10 +21,10 @@ class Shipment
     private ?string $phoneNumber = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $senderAdress = null;
+    private ?string $senderAddress = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $deliveryAdress = null;
+    private ?string $deliveryAddress = null;
 
     #[ORM\Column(type: Types::BIGINT, nullable: true)]
     private ?string $barcode = null;
@@ -60,24 +60,24 @@ class Shipment
 
     public function getSenderAdress(): ?string
     {
-        return $this->senderAdress;
+        return $this->senderAddress;
     }
 
-    public function setSenderAdress(string $senderAdress): static
+    public function setSenderAdress(string $senderAddress): static
     {
-        $this->senderAdress = $senderAdress;
+        $this->senderAddress = $senderAddress;
 
         return $this;
     }
 
     public function getDeliveryAdress(): ?string
     {
-        return $this->deliveryAdress;
+        return $this->deliveryAddress;
     }
 
     public function setDeliveryAdress(string $deliveryAdress): static
     {
-        $this->deliveryAdress = $deliveryAdress;
+        $this->deliveryAddress = $deliveryAdress;
 
         return $this;
     }
