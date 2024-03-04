@@ -26,8 +26,8 @@ class ShipmentController extends AbstractController
         $shipment = new Shipment();
         $shipment->setFullName($data['fullName']);
         $shipment->setPhoneNumber($data['phoneNumber']);
-        $shipment->setSenderAdress($data['senderAddress']);
-        $shipment->setDeliveryAdress($data['deliveryAddress']);
+        $shipment->setSenderAddress($data['senderAddress']);
+        $shipment->setDeliveryAddress($data['deliveryAddress']);
         $shipment->setBarcode($data['barcode']);
 
         $entityManager->persist($shipment);

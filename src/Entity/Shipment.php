@@ -58,26 +58,26 @@ class Shipment
         return $this;
     }
 
-    public function getSenderAdress(): ?string
+    public function getSenderAddress(): ?string
     {
         return $this->senderAddress;
     }
 
-    public function setSenderAdress(string $senderAddress): static
+    public function setSenderAddress(string $senderAddress): static
     {
         $this->senderAddress = $senderAddress;
 
         return $this;
     }
 
-    public function getDeliveryAdress(): ?string
+    public function getDeliveryAddress(): ?string
     {
         return $this->deliveryAddress;
     }
 
-    public function setDeliveryAdress(string $deliveryAdress): static
+    public function setDeliveryAddress(string $deliveryAddress): static
     {
-        $this->deliveryAddress = $deliveryAdress;
+        $this->deliveryAddress = $deliveryAddress;
 
         return $this;
     }
