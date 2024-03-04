@@ -3,6 +3,7 @@
 namespace Invertus\Academy\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Invertus\Academy\Entity\Shipment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,22 +16,26 @@ class ShipmentController extends AbstractController
     public function save(Request $request, EntityManagerInterface $entityManager): Response
     {
       
-        //authorisation check
         $authorizationHeader = $request->headers->get('Authorization');
         $token = str_replace('Bearer ', '', $authorizationHeader);
         
         if ($_ENV['API_KEY'] !== $token) {
             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
-        // in postman use body window to provide data in .json format
-        // entity manager is mainly used only for persist and flush functions
+ 
+        $data = json_decode($request->getContent(), true);
 
-        $data = json_decode($request->getContent(), true); // decodes data into an array ($data)
+        $shipment = new Shipment();
+        $shipment->setFullName($data['fullName']);
+        $shipment->setPhoneNumber($data['phoneNumber']);
+        $shipment->setSenderAdress($data['senderAddress']);
+        $shipment->setDeliveryAdress($data['deliveryAddress']);
+        $shipment->setBarcode($data['barcode']);
 
+        $entityManager->persist($shipment);
+        $entityManager->flush();
 
-        // other logic
         return new Response("foo", 333);
     }
-    // print shipment function needed
 }
     
