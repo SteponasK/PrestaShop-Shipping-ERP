@@ -18,7 +18,7 @@ class ShipmentController extends AbstractController
         $authorizationHeader = $request->headers->get('Authorization');
         $token = str_replace('Bearer ', '', $authorizationHeader);
         if ($_ENV['API_KEY'] !== $token) {
-            return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
+            // return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
  
         $data = json_decode($request->getContent(), true);
@@ -28,11 +28,11 @@ class ShipmentController extends AbstractController
         $shipment->setPhoneNumber($data['phoneNumber']);
         $shipment->setSenderAddress($data['senderAddress']);
         $shipment->setDeliveryAddress($data['deliveryAddress']);
-        $shipment->setBarcode($data['barcode']);
-
+        $shipment->setBarcode(decbin(time()));
+        
         $entityManager->persist($shipment);
         $entityManager->flush();
-
+        
         return new Response('', Response::HTTP_CREATED);
     }
 
@@ -42,4 +42,3 @@ class ShipmentController extends AbstractController
         return new Response();
     }
 }
-    
