@@ -14,7 +14,7 @@ use Invertus\Academy\Entity\Shipment;
  * @method Label[]    findAll()
  * @method Label[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LabelRepository extends ServiceEntityRepository
+class ShipmentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

@@ -4,9 +4,9 @@ namespace Invertus\Academy\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Invertus\Academy\Repository\LabelRepository;
+use Invertus\Academy\Repository\ShipmentRepository;
 
-#[ORM\Entity(repositoryClass: LabelRepository::class)]
+#[ORM\Entity(repositoryClass: ShipmentRepository::class)]
 class Shipment
 {
     #[ORM\Id]

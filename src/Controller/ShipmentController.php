@@ -19,7 +19,7 @@ class ShipmentController extends AbstractController
         $authorizationHeader = $request->headers->get('Authorization');
         $token = str_replace('Bearer ', '', $authorizationHeader);
         if ($_ENV['API_KEY'] !== $token) {
-            // return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
+             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
  
         $data = json_decode($request->getContent(), true);
@@ -37,8 +37,8 @@ class ShipmentController extends AbstractController
         return new Response('', Response::HTTP_CREATED);
     }
 
-    #[Route('/api/shipment/print/', name: 'app_print_shipment', methods: ['GET'])]
-    public function print(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/api/shipment/print/{id}', name: 'app_print_shipment', methods: ['GET'])]
+    public function print(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
         $authorizationHeader = $request->headers->get('Authorization');
         $token = str_replace('Bearer ', '', $authorizationHeader);
@@ -46,11 +46,13 @@ class ShipmentController extends AbstractController
             // return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
  
-        $data = json_decode($request->getContent(), true);
-        
-        $id = $data['id'];
-        $product = $entityManager->getRepository(Shipment::class)->find($id);
-
+        $shipment = $entityManager->getRepository(Shipment::class)->find($id);
+        var_dump($shipment);
+        if(!$shipment){
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
         
         return new Response();
     }
