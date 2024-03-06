@@ -3,6 +3,7 @@
 namespace Invertus\Academy\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Dompdf\Dompdf;
 use Invertus\Academy\Entity\Product;
 use Invertus\Academy\Entity\Shipment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Dompdf\Pdf;
 
 class ShipmentController extends AbstractController
 { 
@@ -43,17 +45,42 @@ class ShipmentController extends AbstractController
         $authorizationHeader = $request->headers->get('Authorization');
         $token = str_replace('Bearer ', '', $authorizationHeader);
         if ($_ENV['API_KEY'] !== $token) {
-            // return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
+             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
  
         $shipment = $entityManager->getRepository(Shipment::class)->find($id);
-        var_dump($shipment);
+
         if(!$shipment){
             throw $this->createNotFoundException(
                 'No product found for id '.$id
             );
         }
+        $shipmentInformation = [
+            'fullName'=> $shipment->getFullName(),
+            'phoneNumber' => $shipment->getPhoneNumber(),
+            'senderAddress' => $shipment->getSenderAddress(),
+            'deliveryAddress' => $shipment->getDeliveryAddress(),
+            'barcode' => $shipment->getBarcode()
+        ];
+        var_dump($shipmentInformation);
+        $newPdf = $this->generatePDF($shipmentInformation);
         
-        return new Response();
+        $response = new Response();
+
+      
+        
+        return $response;
     }
+    /**
+     * @param array $shipmentInformation
+     * @return Dompdf $domPDF
+     */
+    
+    private function generatePDF(array $shipmentInformation){
+        $domPDF = new Dompdf();
+
+        return $domPDF;
+        
+    }
+    
 }
