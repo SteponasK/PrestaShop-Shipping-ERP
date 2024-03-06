@@ -3,6 +3,7 @@
 namespace Invertus\Academy\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Invertus\Academy\Entity\Product;
 use Invertus\Academy\Entity\Shipment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,13 +33,25 @@ class ShipmentController extends AbstractController
         
         $entityManager->persist($shipment);
         $entityManager->flush();
-        
+
         return new Response('', Response::HTTP_CREATED);
     }
 
     #[Route('/api/shipment/print/', name: 'app_print_shipment', methods: ['GET'])]
     public function print(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $authorizationHeader = $request->headers->get('Authorization');
+        $token = str_replace('Bearer ', '', $authorizationHeader);
+        if ($_ENV['API_KEY'] !== $token) {
+            // return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
+        }
+ 
+        $data = json_decode($request->getContent(), true);
+        
+        $id = $data['id'];
+        $product = $entityManager->getRepository(Shipment::class)->find($id);
+
+        
         return new Response();
     }
 }
