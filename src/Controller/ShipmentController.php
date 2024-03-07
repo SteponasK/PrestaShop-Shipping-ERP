@@ -44,10 +44,28 @@ class ShipmentController extends AbstractController
                 'No product found for id '.$id
             );
         }
+        $shipmentInformation = $this->getShipmentInformation($shipment);
 
         return new Response();
     }  
 
+    
+private function getShipmentInformation(Shipment $shipment): array
+{
+    return [
+        'country'=> $shipment->getCountry(),
+        'company' => $shipment->getCompany(),
+        'firstName' => $shipment->getFirstName(),
+        'lastName' => $shipment->getLastName(),
+        'address1' => $shipment->getAddress1(),
+        'address2'=> $shipment->getAddress2(),
+        'postcode' => $shipment->getPostCode(),
+        'city' => $shipment->getCity(),
+        'phone' => $shipment->getPhone(),
+        'phoneMobile' => $shipment->getPhoneMobile(),
+        'barcode' => $shipment->getBarcode()
+    ];
+}
     private function createShipmentService(array $data, EntityManagerInterface $entityManager): void
     {
         $shipment = new Shipment();
