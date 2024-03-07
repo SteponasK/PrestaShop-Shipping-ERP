@@ -28,6 +28,13 @@ class ShipmentController extends AbstractController
         return new Response('', Response::HTTP_CREATED);
     }
 
+    #[Route('/api/shipment/print/{id}', name: 'app_print_shipment', methods: ['GET'])]
+    public function print(Request $request, EntityManagerInterface $entityManager, int $id): Response
+    {
+            
+        return new Response();
+    }  
+
     private function createShipmentService(array $data, EntityManagerInterface $entityManager): void
     {
         $shipment = new Shipment();
