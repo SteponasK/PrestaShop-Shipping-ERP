@@ -19,7 +19,7 @@ class ShipmentController extends AbstractController
         $authorizationHeader = $request->headers->get('Authorization');
         $token = str_replace('Bearer ', '', $authorizationHeader);
         if ($_ENV['API_KEY'] !== $token) {
-        //    return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
+            return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
  
         $data = json_decode($request->getContent(), true);
