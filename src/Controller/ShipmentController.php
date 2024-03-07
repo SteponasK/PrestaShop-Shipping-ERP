@@ -3,7 +3,6 @@
 namespace Invertus\Academy\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Dompdf\Dompdf;
 use Invertus\Academy\Entity\Product;
 use Invertus\Academy\Entity\Shipment;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Dompdf\Pdf;
 
 class ShipmentController extends AbstractController
 { 
@@ -34,44 +32,6 @@ class ShipmentController extends AbstractController
         return new Response('', Response::HTTP_CREATED);
     }
 
-    #[Route('/api/shipment/print/{id}', name: 'app_print_shipment', methods: ['GET'])]
-    public function print(Request $request, EntityManagerInterface $entityManager, int $id): Response
-    {
-        $authorizationHeader = $request->headers->get('Authorization');
-        $token = str_replace('Bearer ', '', $authorizationHeader);
-        if ($_ENV['API_KEY'] !== $token) {
-             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
-        }
- 
-        $shipment = $entityManager->getRepository(Shipment::class)->find($id);
-
-        if(!$shipment){
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
-        }
-        $shipmentInformation = $this->getShipmentInformation($shipment);
-        
-        var_dump($shipmentInformation);
-        $newPdf = $this->generatePDF($shipmentInformation);
-        
-        $response = new Response();
-
-      
-        
-        return $response;
-    }
-    /**
-     * @param array $shipmentInformation
-     * @return Dompdf $domPDF
-     */
-    
-    private function generatePDF(array $shipmentInformation){
-        $domPDF = new Dompdf();
-
-        return $domPDF;
-        
-    }
     private function createShipment(array $data): Shipment
     {
         $shipment = new Shipment();
@@ -88,23 +48,6 @@ class ShipmentController extends AbstractController
         $shipment->setBarcode(decbin(time()));
 
         return $shipment;
-    }
-    private function getShipmentInformation(Shipment $shipment): array
-    {
-        return [
-            'country'=> $shipment->getCountry(),
-            'company' => $shipment->getCompany(),
-            'firstName' => $shipment->getFirstName(),
-            'lastName' => $shipment->getLastName(),
-            'address1' => $shipment->getAddress1(),
-
-            'address2'=> $shipment->getAddress2(),
-            'postcode' => $shipment->getPostCode(),
-            'city' => $shipment->getCity(),
-            'phone' => $shipment->getPhone(),
-            'phoneMobile' => $shipment->getPhoneMobile(),
-            'barcode' => $shipment->getBarcode()
-        ];
     }
     
 }
