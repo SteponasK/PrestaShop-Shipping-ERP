@@ -36,6 +36,8 @@ class ShipmentController extends AbstractController
         if ($_ENV['API_KEY'] !== $token) {
             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
+        
+        $shipment = $entityManager->getRepository(Shipment::class)->find($id);
 
         
         return new Response();
