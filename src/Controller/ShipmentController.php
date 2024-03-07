@@ -26,18 +26,7 @@ class ShipmentController extends AbstractController
  
         $data = json_decode($request->getContent(), true);
 
-        $shipment = new Shipment();
-        $shipment->setCountry($data['country']);
-        $shipment->setCompany($data['company']);
-        $shipment->setFirstName($data['firstName']);
-        $shipment->setLastName($data['lastName']);
-        $shipment->setAddress1($data['address1']);
-        $shipment->setAddress2($data['address2']);
-        $shipment->setPostcode($data['postcode']);
-        $shipment->setCity($data['city']);
-        $shipment->setPhone($data['phone']);
-        $shipment->setPhoneMobile($data['phoneMobile']);
-        $shipment->setBarcode(decbin(time()));
+        $shipment = $this->createShipment($data);
         
         $entityManager->persist($shipment);
         $entityManager->flush();
@@ -62,10 +51,17 @@ class ShipmentController extends AbstractController
             );
         }
         $shipmentInformation = [
-            'fullName'=> $shipment->getFullName(),
-            'phoneNumber' => $shipment->getPhoneNumber(),
-            'senderAddress' => $shipment->getSenderAddress(),
-            'deliveryAddress' => $shipment->getDeliveryAddress(),
+            'country'=> $shipment->getCountry(),
+            'company' => $shipment->getCompany(),
+            'firstName' => $shipment->getFirstName(),
+            'lastName' => $shipment->getLastName(),
+            'address1' => $shipment->getAddress1(),
+
+            'address2'=> $shipment->getAddress2(),
+            'postcode' => $shipment->getPostCode(),
+            'city' => $shipment->getCity(),
+            'phone' => $shipment->getPhone(),
+            'phoneMobile' => $shipment->getPhoneMobile(),
             'barcode' => $shipment->getBarcode()
         ];
         var_dump($shipmentInformation);
@@ -87,6 +83,23 @@ class ShipmentController extends AbstractController
 
         return $domPDF;
         
+    }
+    private function createShipment(array $data): Shipment
+    {
+        $shipment = new Shipment();
+        $shipment->setCountry($data['country']);
+        $shipment->setCompany($data['company']);
+        $shipment->setFirstName($data['firstName']);
+        $shipment->setLastName($data['lastName']);
+        $shipment->setAddress1($data['address1']);
+        $shipment->setAddress2($data['address2']);
+        $shipment->setPostcode($data['postcode']);
+        $shipment->setCity($data['city']);
+        $shipment->setPhone($data['phone']);
+        $shipment->setPhoneMobile($data['phoneMobile']);
+        $shipment->setBarcode(decbin(time()));
+
+        return $shipment;
     }
     
 }
