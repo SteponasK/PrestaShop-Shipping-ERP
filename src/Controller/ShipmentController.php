@@ -47,7 +47,7 @@ class ShipmentController extends AbstractController
         }
         $shipmentInformation = $this->getShipmentInformation($shipment);
 
-        $pdf = $this->generatePdfFile($shipment);
+        $pdf = $this->generatePdfFile($shipmentInformation);
 
        return new Response(
         $pdf->output(),
@@ -58,12 +58,35 @@ class ShipmentController extends AbstractController
     );
     }  
 
-    private function generatePdfFile(Shipment $shipment): Dompdf
+    private function generatePdfFile(array $shipmentInformation): Dompdf
     {
         $pdf = new Dompdf();
-        $pdf->loadHtml('');
+        $this->addDataToPdf($pdf, $shipmentInformation);
         $pdf->render();
         return $pdf;
+    }
+    private function addDataToPdf(Dompdf $pdf, array $shipmentInformation): void
+    {
+        $html = '<table border="1" width="50%" style="margin: 0 auto; text-align: center;">
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>';
+
+        foreach($shipmentInformation as $field => $value){
+            if($field === 'barcode'){
+                continue;
+            }
+            $html .= '<tr>
+                <td>' . ucfirst($field) . '</td>
+                <td>' . $value . '</td>
+            </tr>';
+        }
+
+        $html .='</table>';
+        $html .= '<br><br>';
+
+        $pdf->loadHtml($html);
     }
     
     private function getShipmentInformation(Shipment $shipment): array
