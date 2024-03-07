@@ -14,7 +14,7 @@ class Shipment
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Country = null;
+    private ?string $country = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $company = null;
@@ -44,6 +44,9 @@ class Shipment
     #[ORM\Column(length: 255)]
     private ?string $phoneMobile = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $barcode = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,12 +54,12 @@ class Shipment
 
     public function getCountry(): ?string
     {
-        return $this->Country;
+        return $this->country;
     }
 
-    public function setCountry(string $Country): static
+    public function setCountry(string $country): static
     {
-        $this->Country = $Country;
+        $this->country = $country;
 
         return $this;
     }
@@ -165,6 +168,18 @@ class Shipment
     public function setPhoneMobile(string $phoneMobile): static
     {
         $this->phoneMobile = $phoneMobile;
+
+        return $this;
+    }
+
+    public function getBarcode(): ?string
+    {
+        return $this->barcode;
+    }
+
+    public function setBarcode(?string $barcode): static
+    {
+        $this->barcode = $barcode;
 
         return $this;
     }
