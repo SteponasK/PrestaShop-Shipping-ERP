@@ -31,7 +31,13 @@ class ShipmentController extends AbstractController
     #[Route('/api/shipment/print/{id}', name: 'app_print_shipment', methods: ['GET'])]
     public function print(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
-            
+        $authorizationHeader = $request->headers->get('Authorization');
+        $token = str_replace('Bearer ', '', $authorizationHeader);
+        if ($_ENV['API_KEY'] !== $token) {
+            return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
+        }
+
+        
         return new Response();
     }  
 
