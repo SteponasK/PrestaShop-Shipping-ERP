@@ -39,7 +39,12 @@ class ShipmentController extends AbstractController
         
         $shipment = $entityManager->getRepository(Shipment::class)->find($id);
 
-        
+        if(!$shipment){
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+            );
+        }
+
         return new Response();
     }  
 
