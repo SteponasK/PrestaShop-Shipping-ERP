@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Dompdf\Dompdf;
 
 class ShipmentController extends AbstractController
 { 
@@ -46,15 +47,23 @@ class ShipmentController extends AbstractController
         }
         $shipmentInformation = $this->getShipmentInformation($shipment);
 
-        $pdfString = $this->generatePdfString($shipment);
+        $pdf = $this->generatePdfFile($shipment);
 
-        return new Response();
+       return new Response(
+        $pdf->output(),
+        Response::HTTP_OK,
+        [
+            'Content-Type' => 'application/pdf',
+        ]
+    );
     }  
 
-    private function generatePdfString(Shipment $shipment): string
+    private function generatePdfFile(Shipment $shipment): Dompdf
     {
-
-        return '';
+        $pdf = new Dompdf();
+        $pdf->loadHtml('');
+        $pdf->render();
+        return $pdf;
     }
     
     private function getShipmentInformation(Shipment $shipment): array
