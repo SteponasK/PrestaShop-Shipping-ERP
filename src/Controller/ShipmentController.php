@@ -50,20 +50,8 @@ class ShipmentController extends AbstractController
                 'No product found for id '.$id
             );
         }
-        $shipmentInformation = [
-            'country'=> $shipment->getCountry(),
-            'company' => $shipment->getCompany(),
-            'firstName' => $shipment->getFirstName(),
-            'lastName' => $shipment->getLastName(),
-            'address1' => $shipment->getAddress1(),
-
-            'address2'=> $shipment->getAddress2(),
-            'postcode' => $shipment->getPostCode(),
-            'city' => $shipment->getCity(),
-            'phone' => $shipment->getPhone(),
-            'phoneMobile' => $shipment->getPhoneMobile(),
-            'barcode' => $shipment->getBarcode()
-        ];
+        $shipmentInformation = $this->getShipmentInformation($shipment);
+        
         var_dump($shipmentInformation);
         $newPdf = $this->generatePDF($shipmentInformation);
         
@@ -100,6 +88,23 @@ class ShipmentController extends AbstractController
         $shipment->setBarcode(decbin(time()));
 
         return $shipment;
+    }
+    private function getShipmentInformation(Shipment $shipment): array
+    {
+        return [
+            'country'=> $shipment->getCountry(),
+            'company' => $shipment->getCompany(),
+            'firstName' => $shipment->getFirstName(),
+            'lastName' => $shipment->getLastName(),
+            'address1' => $shipment->getAddress1(),
+
+            'address2'=> $shipment->getAddress2(),
+            'postcode' => $shipment->getPostCode(),
+            'city' => $shipment->getCity(),
+            'phone' => $shipment->getPhone(),
+            'phoneMobile' => $shipment->getPhoneMobile(),
+            'barcode' => $shipment->getBarcode()
+        ];
     }
     
 }
