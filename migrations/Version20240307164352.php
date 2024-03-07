@@ -20,12 +20,26 @@ final class Version20240307164352 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE shipment ADD country VARCHAR(255) NOT NULL, ADD company VARCHAR(255) DEFAULT NULL, ADD first_name VARCHAR(255) NOT NULL, ADD last_name VARCHAR(255) NOT NULL, ADD address1 VARCHAR(255) NOT NULL, ADD address2 VARCHAR(255) DEFAULT NULL, ADD postcode VARCHAR(255) NOT NULL, ADD city VARCHAR(255) NOT NULL, ADD phone VARCHAR(255) DEFAULT NULL, ADD phone_mobile VARCHAR(255) NOT NULL, DROP full_name, DROP phone_number, DROP sender_address, DROP delivery_address, CHANGE barcode barcode VARCHAR(255) DEFAULT NULL');
+        $this->addSql('CREATE TABLE shipment (
+            id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+            country VARCHAR(255) NOT NULL,
+            company VARCHAR(255) DEFAULT NULL,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
+            address1 VARCHAR(255) NOT NULL,
+            address2 VARCHAR(255) DEFAULT NULL,
+            postcode VARCHAR(255) NOT NULL,
+            city VARCHAR(255) NOT NULL,
+            phone VARCHAR(255) DEFAULT NULL,
+            phone_mobile VARCHAR(255) NOT NULL,
+            barcode VARCHAR(255) DEFAULT NULL
+        )');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE shipment ADD full_name VARCHAR(255) NOT NULL, ADD phone_number VARCHAR(255) NOT NULL, ADD sender_address VARCHAR(255) NOT NULL, ADD delivery_address VARCHAR(255) NOT NULL, DROP country, DROP company, DROP first_name, DROP last_name, DROP address1, DROP address2, DROP postcode, DROP city, DROP phone, DROP phone_mobile, CHANGE barcode barcode BIGINT DEFAULT NULL');
+        $this->addSql('DROP TABLE shipment');
     }
 }
+
