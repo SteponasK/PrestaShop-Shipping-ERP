@@ -2,11 +2,10 @@
 
 namespace Invertus\Academy\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Invertus\Academy\Repository\LabelRepository;
+use Invertus\Academy\Repository\ShipmentRepository;
 
-#[ORM\Entity(repositoryClass: LabelRepository::class)]
+#[ORM\Entity(repositoryClass: ShipmentRepository::class)]
 class Shipment
 {
     #[ORM\Id]
@@ -15,18 +14,37 @@ class Shipment
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $fullName = null;
+    private ?string $country = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $company = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $phoneNumber = null;
+    private ?string $firstName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $senderAdress = null;
+    private ?string $lastName = null;
+
 
     #[ORM\Column(length: 255)]
-    private ?string $deliveryAdress = null;
+    private ?string $address1 = null;
 
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address2 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $postcode = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $phone = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $phoneMobile = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $barcode = null;
 
     public function getId(): ?int
@@ -34,50 +52,122 @@ class Shipment
         return $this->id;
     }
 
-    public function getFullName(): ?string
+    public function getCountry(): ?string
     {
-        return $this->fullName;
+        return $this->country;
     }
 
-    public function setFullName(string $fullName): static
+    public function setCountry(string $country): static
     {
-        $this->fullName = $fullName;
+        $this->country = $country;
 
         return $this;
     }
 
-    public function getPhoneNumber(): ?string
+    public function getCompany(): ?string
     {
-        return $this->phoneNumber;
+        return $this->company;
     }
 
-    public function setPhoneNumber(string $phoneNumber): static
+    public function setCompany(?string $company): static
     {
-        $this->phoneNumber = $phoneNumber;
+        $this->company = $company;
 
         return $this;
     }
 
-    public function getSenderAdress(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->senderAdress;
+        return $this->firstName;
     }
 
-    public function setSenderAdress(string $senderAdress): static
+    public function setFirstName(string $firstName): static
     {
-        $this->senderAdress = $senderAdress;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
-    public function getDeliveryAdress(): ?string
+    public function getLastName(): ?string
     {
-        return $this->deliveryAdress;
+        return $this->lastName;
     }
 
-    public function setDeliveryAdress(string $deliveryAdress): static
+    public function setLastName(string $lastName): static
     {
-        $this->deliveryAdress = $deliveryAdress;
+        $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    public function getAddress1(): ?string
+    {
+        return $this->address1;
+    }
+
+    public function setAddress1(string $address1): static
+    {
+        $this->address1 = $address1;
+
+        return $this;
+    }
+
+    public function getAddress2(): ?string
+    {
+        return $this->address2;
+    }
+
+    public function setAddress2(?string $address2): static
+    {
+        $this->address2 = $address2;
+
+        return $this;
+    }
+
+    public function getPostcode(): ?string
+    {
+        return $this->postcode;
+    }
+
+    public function setPostcode(string $postcode): static
+    {
+        $this->postcode = $postcode;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): static
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): static
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getPhoneMobile(): ?string
+    {
+        return $this->phoneMobile;
+    }
+
+    public function setPhoneMobile(string $phoneMobile): static
+    {
+        $this->phoneMobile = $phoneMobile;
 
         return $this;
     }
