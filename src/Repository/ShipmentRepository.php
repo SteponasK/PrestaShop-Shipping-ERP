@@ -7,12 +7,12 @@ use Doctrine\Persistence\ManagerRegistry;
 use Invertus\Academy\Entity\Shipment;
 
 /**
- * @extends ServiceEntityRepository<Label>
+ * @extends ServiceEntityRepository<Shipment>
  *
- * @method Label|null find($id, $lockMode = null, $lockVersion = null)
- * @method Label|null findOneBy(array $criteria, array $orderBy = null)
- * @method Label[]    findAll()
- * @method Label[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Shipment|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Shipment|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Shipment[]    findAll()
+ * @method Shipment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ShipmentRepository extends ServiceEntityRepository
 {
@@ -22,24 +22,24 @@ class ShipmentRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return Label[] Returns an array of Label objects
+    //     * @return Shipment[] Returns an array of Shipment objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('l')
-    //            ->andWhere('l.exampleField = :val')
+    //        return $this->createQueryBuilder('s')
+    //            ->andWhere('s.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('l.id', 'ASC')
+    //            ->orderBy('s.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Label
+    //    public function findOneBySomeField($value): ?Shipment
     //    {
-    //        return $this->createQueryBuilder('l')
-    //            ->andWhere('l.exampleField = :val')
+    //        return $this->createQueryBuilder('s')
+    //            ->andWhere('s.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()
