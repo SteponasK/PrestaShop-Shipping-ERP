@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Dompdf\Dompdf;
+use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class ShipmentController extends AbstractController
 { 
@@ -85,10 +86,14 @@ class ShipmentController extends AbstractController
 
         $html .='</table>';
         $html .= '<br><br>';
-
+        $html .= $this->addBarcodeToPdf();
+        
         $pdf->loadHtml($html);
     }
-    
+    private function addBarcodeToPdf(): string
+    {
+        return '';
+    }
     private function getShipmentInformation(Shipment $shipment): array
     {
         return [
