@@ -10,4 +10,3 @@
 /.env*
 !/.env.dist
 phpunit.xml
-phpunit.result.cache
