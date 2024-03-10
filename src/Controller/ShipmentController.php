@@ -75,8 +75,8 @@ class ShipmentController extends AbstractController
             <th>Value</th>
         </tr>';
 
-        foreach($shipmentInformation as $field => $value){
-            if($field === 'barcode'){
+        foreach ($shipmentInformation as $field => $value){
+            if ($field === 'barcode'){
                 continue;
             }
             $html .= '<tr>
