@@ -2,7 +2,6 @@
 
 namespace Invertus\Academy\ApiHelper;
 
-
 use Symfony\Component\HttpFoundation\Request;
 
 class ApiHelper

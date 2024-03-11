@@ -3,7 +3,7 @@
 namespace Invertus\Academy\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
-
+use Invertus\Academy\ApiHelper\ApiHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,22 +16,22 @@ use Invertus\Academy\ShipmentPrintService\ShipmentPrintService;
 class ShipmentController extends AbstractController
 { 
     #[Route('/api/shipment/save/', name: 'app_save_shipment', methods: ['POST'])]
-    public function save(Request $request, EntityManagerInterface $entityManager, ShipmentCreateService $service): Response
+    public function save(Request $request, EntityManagerInterface $entityManager, ShipmentCreateService $service, ApiHelper $apiHelper): Response
     {
-        if (!$service->isApiKeyValid($request))
+        if (!$apiHelper->isApiKeyValid($request))
         {
             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
-        $data = $service->getData($request);
+        $data = $apiHelper->getData($request);
         $service->createShipment($data, $entityManager);
         
         return new Response('', Response::HTTP_CREATED);
     }
 
     #[Route('/api/shipment/print/{id}', name: 'app_print_shipment', methods: ['GET'])]
-    public function print(Request $request, EntityManagerInterface $entityManager, ShipmentPrintService $service, int $id): Response
+    public function print(Request $request, EntityManagerInterface $entityManager, ShipmentPrintService $service, ApiHelper $apiHelper, int $id): Response
     {
-        if (!$service->isApiKeyValid($request))
+        if (!$apiHelper->isApiKeyValid($request))
         {
             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
