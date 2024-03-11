@@ -18,7 +18,8 @@ class ShipmentPrintService
     {
         $authorizationHeader = $request->headers->get('Authorization');
         $token = str_replace('Bearer ', '', $authorizationHeader);
-        if ($_ENV['API_KEY'] !== $token) {
+        if ($_ENV['API_KEY'] !== $token)
+        {
             return false;
         }
         return true;
@@ -31,7 +32,8 @@ class ShipmentPrintService
 
     public function getShipmentInformation(Shipment $shipment): array
     {
-        return [
+        return
+        [
             'country'=> $shipment->getCountry(),
             'company' => $shipment->getCompany(),
             'firstName' => $shipment->getFirstName(),
@@ -61,7 +63,7 @@ class ShipmentPrintService
             <img src="data:image/png;base64,' . base64_encode($generator->getBarcode($value, $generator::TYPE_CODE_128, widthFactor:1)) . '" >
             </div>';
     }
-    
+
     public function addDataToPdf(Dompdf $pdf, array $shipmentInformation): void
     {
         
@@ -72,7 +74,8 @@ class ShipmentPrintService
         </tr>';
 
         foreach ($shipmentInformation as $field => $value){
-            if ($field === 'barcode'){
+            if ($field === 'barcode')
+            {
                 continue;
             }
             $html .= '<tr>

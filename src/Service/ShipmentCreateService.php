@@ -14,7 +14,8 @@ class ShipmentCreateService
     {
         $authorizationHeader = $request->headers->get('Authorization');
         $token = str_replace('Bearer ', '', $authorizationHeader);
-        if ($_ENV['API_KEY'] !== $token) {
+        if ($_ENV['API_KEY'] !== $token)
+        {
             return false;
         }
         return true;
@@ -25,8 +26,10 @@ class ShipmentCreateService
         return json_decode($request->getContent(), true);
     }
 
-    public function createShipment(array $data, EntityManagerInterface $entityManager) : void {
+    public function createShipment(array $data, EntityManagerInterface $entityManager) : void
+    {
         $shipment = new Shipment();
+        
         $shipment->setCountry($data['country']);
         $shipment->setCompany($data['company']);
         $shipment->setFirstName($data['firstName']);
