@@ -26,7 +26,7 @@ class ShipmentController extends AbstractController
         }
  
         $data = json_decode($request->getContent(), true);
-        $this->createShipmentService($data, $entityManager);
+        $this->createShipment($data, $entityManager);
         
         return new Response('', Response::HTTP_CREATED);
     }
@@ -114,7 +114,7 @@ class ShipmentController extends AbstractController
             'barcode' => $shipment->getBarcode()
         ];
     }
-    private function createShipmentService(array $data, EntityManagerInterface $entityManager): void
+    private function createShipment(array $data, EntityManagerInterface $entityManager): void
     {
         $shipment = new Shipment();
         $shipment->setCountry($data['country']);
