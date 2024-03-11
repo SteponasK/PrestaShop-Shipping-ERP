@@ -56,7 +56,7 @@ class ShipmentPrintService
         return $pdf;
     }
 
-    public function getBarcodeHtml(string $value): string
+    private function getBarcodeHtml(string $value): string
     {
         $generator = new BarcodeGeneratorPNG();
         return '<div style="text-align: center;">
@@ -64,7 +64,7 @@ class ShipmentPrintService
             </div>';
     }
 
-    public function addDataToPdf(Dompdf $pdf, array $shipmentInformation): void
+    private function addDataToPdf(Dompdf $pdf, array $shipmentInformation): void
     {
         
         $html = '<table border="1" width="50%" style="margin: 0 auto; text-align: center;">
