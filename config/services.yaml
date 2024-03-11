@@ -21,7 +21,7 @@ services:
             - '../src/Kernel.php'
     Invertus\Academy\ShipmentCreateService\ShipmentCreateService:
         autowire: true
-    Invertus\Academy\ShipmentCreateService\ShipmentPrintService:
+    Invertus\Academy\ShipmentPrintService\ShipmentPrintService:
         autowire: true
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
