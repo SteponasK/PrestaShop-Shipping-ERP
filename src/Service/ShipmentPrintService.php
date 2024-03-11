@@ -14,16 +14,6 @@ use Dompdf\Dompdf;
 
 class ShipmentPrintService
 {
-    public function isApiKeyValid(Request $request): bool
-    {
-        $authorizationHeader = $request->headers->get('Authorization');
-        $token = str_replace('Bearer ', '', $authorizationHeader);
-        if ($_ENV['API_KEY'] !== $token)
-        {
-            return false;
-        }
-        return true;
-    }
 
     public function getShipment(EntityManagerInterface $entityManager, int $id)
     {
