@@ -2,7 +2,10 @@
 
 namespace Invertus\Academy\ShipmentPrintService;
 
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Invertus\Academy\Entity\Shipment;
 
 class ShipmentPrintService
 {
@@ -14,5 +17,9 @@ class ShipmentPrintService
             return false;
         }
         return true;
+    }
+    public function getShipment(EntityManagerInterface $entityManager, int $id)
+    {
+        return  $entityManager->getRepository(Shipment::class)->find($id);
     }
 }
