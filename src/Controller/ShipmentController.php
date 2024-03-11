@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Dompdf\Dompdf;
 use Invertus\Academy\ShipmentCreateService\ShipmentCreateService;
+use Invertus\Academy\ShipmentPrintService\ShipmentPrintService;
 use Picqer\Barcode\BarcodeGeneratorHTML;
 use Picqer\Barcode\BarcodeGeneratorPNG;
 
@@ -29,11 +30,9 @@ class ShipmentController extends AbstractController
     }
 
     #[Route('/api/shipment/print/{id}', name: 'app_print_shipment', methods: ['GET'])]
-    public function print(Request $request, EntityManagerInterface $entityManager, int $id): Response
+    public function print(Request $request, EntityManagerInterface $entityManager, ShipmentPrintService $service, int $id): Response
     {
-        $authorizationHeader = $request->headers->get('Authorization');
-        $token = str_replace('Bearer ', '', $authorizationHeader);
-        if ($_ENV['API_KEY'] !== $token) {
+        if($service->isApiKeyValid($request) === false){
             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
         
