@@ -42,7 +42,7 @@ class ShipmentController extends AbstractController
                 'No product found for id '.$id
             );
         }
-        $shipmentInformation = $this->getShipmentInformation($shipment);
+        $shipmentInformation = $service->getShipmentInformation($shipment);
 
         $pdf = $this->generatePdfFile($shipmentInformation);
 
@@ -92,22 +92,5 @@ class ShipmentController extends AbstractController
         return '<div style="text-align: center;">
             <img src="data:image/png;base64,' . base64_encode($generator->getBarcode($value, $generator::TYPE_CODE_128, widthFactor:1)) . '" >
             </div>';
-    }
-    private function getShipmentInformation(Shipment $shipment): array
-    {
-        return [
-            'country'=> $shipment->getCountry(),
-            'company' => $shipment->getCompany(),
-            'firstName' => $shipment->getFirstName(),
-            'lastName' => $shipment->getLastName(),
-            'address1' => $shipment->getAddress1(),
-            'address2'=> $shipment->getAddress2(),
-            'postcode' => $shipment->getPostCode(),
-            'city' => $shipment->getCity(),
-            'phone' => $shipment->getPhone(),
-            'phoneMobile' => $shipment->getPhoneMobile(),
-            'barcode' => $shipment->getBarcode()
-        ];
-    }
-    
+    }    
 }
