@@ -23,10 +23,12 @@ class ShipmentPrintService
         }
         return true;
     }
+
     public function getShipment(EntityManagerInterface $entityManager, int $id)
     {
         return  $entityManager->getRepository(Shipment::class)->find($id);
     }
+
     public function getShipmentInformation(Shipment $shipment): array
     {
         return [
@@ -43,6 +45,7 @@ class ShipmentPrintService
             'barcode' => $shipment->getBarcode()
         ];
     }
+
     public function generatePdfFile(array $shipmentInformation): Dompdf
     {
         $pdf = new Dompdf();
@@ -50,6 +53,7 @@ class ShipmentPrintService
         $pdf->render();
         return $pdf;
     }
+
     public function getBarcodeHtml(string $value): string
     {
         $generator = new BarcodeGeneratorPNG();
@@ -57,6 +61,7 @@ class ShipmentPrintService
             <img src="data:image/png;base64,' . base64_encode($generator->getBarcode($value, $generator::TYPE_CODE_128, widthFactor:1)) . '" >
             </div>';
     }
+    
     public function addDataToPdf(Dompdf $pdf, array $shipmentInformation): void
     {
         
