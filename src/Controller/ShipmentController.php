@@ -30,23 +30,23 @@ class ShipmentController extends AbstractController
     }
 
     #[Route('/api/shipment/print/{id}', name: 'app_print_shipment', methods: ['GET'])]
-    public function print(Request $request, EntityManagerInterface $entityManager, ShipmentPrintService $shipmentCreateService, ApiHelper $apiHelper, int $id): Response
+    public function print(Request $request, EntityManagerInterface $entityManager, ShipmentPrintService $shipmentPrintService, ApiHelper $apiHelper, int $id): Response
     {
         if (!$apiHelper->isApiKeyValid($request))
         {
             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
 
-        $shipment = $shipmentCreateService->getShipment($entityManager, $id);
+        $shipment = $shipmentPrintService->getShipment($entityManager, $id);
 
         if (!$shipment)
         {
             throw $this->createNotFoundException('No product found for id '. $id);
         }
 
-        $shipmentInformation = $shipmentCreateService->getShipmentInformation($shipment);
+        $shipmentInformation = $shipmentPrintService->getShipmentInformation($shipment);
 
-        $pdf = $shipmentCreateService->generatePdfFile($shipmentInformation);
+        $pdf = $shipmentPrintService->generatePdfFile($shipmentInformation);
 
        return new Response($pdf->output(), Response::HTTP_OK, ['Content-Type' => 'application/pdf',]);
     }  
