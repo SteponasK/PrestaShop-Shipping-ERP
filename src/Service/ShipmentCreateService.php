@@ -5,6 +5,9 @@ namespace Invertus\Academy\ShipmentCreateService;
 use Invertus\Academy\Entity\Shipment;
 use Doctrine\ORM\EntityManagerInterface;
 use Invertus\Academy\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 class ShipmentCreateService
 {
     public function createShipment(array $data, EntityManagerInterface $entityManager) : void {
@@ -23,5 +26,14 @@ class ShipmentCreateService
 
         $entityManager->persist($shipment);
         $entityManager->flush();
+    }
+    public function isApiKeyValid(Request $request): bool
+    {
+        $authorizationHeader = $request->headers->get('Authorization');
+        $token = str_replace('Bearer ', '', $authorizationHeader);
+        if ($_ENV['API_KEY'] !== $token) {
+            return false;
+        }
+        return true;
     }
 }

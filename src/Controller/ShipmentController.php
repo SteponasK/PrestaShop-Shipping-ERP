@@ -19,12 +19,10 @@ class ShipmentController extends AbstractController
     #[Route('/api/shipment/save/', name: 'app_save_shipment', methods: ['POST'])]
     public function save(Request $request, EntityManagerInterface $entityManager, ShipmentCreateService $service): Response
     {
-        $authorizationHeader = $request->headers->get('Authorization');
-        $token = str_replace('Bearer ', '', $authorizationHeader);
-        if ($_ENV['API_KEY'] !== $token) {
+        
+        if($service->isApiKeyValid($request) === false){
             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
- 
         $data = json_decode($request->getContent(), true);
         $service->createShipment($data, $entityManager);
         
