@@ -36,4 +36,8 @@ class ShipmentCreateService
         }
         return true;
     }
+    public function getData(Request $request): array
+    {
+        return json_decode($request->getContent(), true);
+    }
 }
