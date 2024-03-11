@@ -2,11 +2,14 @@
 
 namespace Invertus\Academy\ShipmentPrintService;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Component\HttpFoundation\Request;
+
 use Invertus\Academy\Entity\Shipment;
+
 use Picqer\Barcode\BarcodeGeneratorPNG;
+
 use Dompdf\Dompdf;
 
 class ShipmentPrintService

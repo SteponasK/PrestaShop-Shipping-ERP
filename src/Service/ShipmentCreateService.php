@@ -2,12 +2,12 @@
 
 namespace Invertus\Academy\ShipmentCreateService;
 
-use Invertus\Academy\Entity\Shipment;
 use Doctrine\ORM\EntityManagerInterface;
-use Invertus\Academy\Controller;
+
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
+
+use Invertus\Academy\Entity\Shipment;
+
 class ShipmentCreateService
 {
     public function createShipment(array $data, EntityManagerInterface $entityManager) : void {

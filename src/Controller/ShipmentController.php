@@ -1,19 +1,17 @@
 <?php
 
 namespace Invertus\Academy\Controller;
+
 use Doctrine\ORM\EntityManagerInterface;
-use Invertus\Academy\Entity\Product;
-use Invertus\Academy\Entity\Shipment;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Dompdf\Dompdf;
+
 use Invertus\Academy\ShipmentCreateService\ShipmentCreateService;
 use Invertus\Academy\ShipmentPrintService\ShipmentPrintService;
-use Picqer\Barcode\BarcodeGeneratorHTML;
-use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class ShipmentController extends AbstractController
 { 
