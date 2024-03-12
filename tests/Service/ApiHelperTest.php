@@ -27,4 +27,16 @@ class ApiHelperTest extends TestCase
         $this->assertEquals($requestData, $data);
     }
 
+    public function testIsApiKeyValid()
+    {
+        $_ENV['API_KEY'] = 'valid_api_key';
+        
+        $validRequest = new Request([], [], [], [], [], ['HTTP_AUTHORIZATION' => 'Bearer valid_api_key']);
+        $isValid = $this->apiHelper->isApiKeyValid($validRequest);
+        $this->assertTrue($isValid);
+
+         $invalidRequest = new Request([], [], [], [], [], ['HTTP_AUTHORIZATION' => 'Bearer invalid_api_key']);
+         $isValid = $this->apiHelper->isApiKeyValid($invalidRequest);
+         $this->assertFalse($isValid);
+    }
 }
