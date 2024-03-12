@@ -19,6 +19,11 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
-
+    Invertus\Academy\ShipmentCreateService\ShipmentCreateService:
+        autowire: true
+    Invertus\Academy\ShipmentPrintService\ShipmentPrintService:
+        autowire: true
+    Invertus\Academy\ApiHelper\ApiHelper:
+        autowire: true
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
