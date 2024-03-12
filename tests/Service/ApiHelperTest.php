@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Invertus\Academy\ApiHelper;
+namespace Tests\Invertus\Academy\ApiHelperTest;
 
 require_once './src/Service/ApiHelper.php';
 
