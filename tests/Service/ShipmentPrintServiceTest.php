@@ -72,4 +72,15 @@ class ShipmentPrintServiceTest extends TestCase
             , $shipmentInformation);
     }
 
+    public function testGeneratePdfFile()
+    {
+        $shipmentPrintService = new ShipmentPrintService();
+
+        $shipmentInformation = [
+            'country' => 'Great Britain',
+            'barcode' => '10101'
+        ];
+        $this->assertInstanceOf(Dompdf::class, $shipmentPrintService->generatePdfFile($shipmentInformation));
+    }
+
 }
