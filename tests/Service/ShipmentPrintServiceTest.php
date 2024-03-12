@@ -37,4 +37,39 @@ class ShipmentPrintServiceTest extends TestCase
         $this->assertInstanceOf(Shipment::class, $result);
     }
 
+    public function testGetShipmentInformation()
+    {
+        $shipment = new Shipment;
+        $shipment->setCountry('country1');
+        $shipment->setCompany('company2');
+        $shipment->setFirstName('firstName3');
+        $shipment->setLastName('lastName4');
+        $shipment->setAddress1('address15');
+        $shipment->setAddress2('address26');
+        $shipment->setPostcode('postcode7');
+        $shipment->setCity('city8');
+        $shipment->setPhone('phone9');
+        $shipment->setPhoneMobile('phoneMobile10');
+        $shipment->setBarcode(10101);
+
+        $shipmentPrintService = new ShipmentPrintService();
+        $shipmentInformation = $shipmentPrintService->getShipmentInformation($shipment);
+
+        $this->assertEquals(
+            [
+                'country'=> 'country1',
+                'company' => 'company2',
+                'firstName' => 'firstName3',
+                'lastName' => 'lastName4',
+                'address1' => 'address15',
+                'address2'=> 'address26',
+                'postcode' => 'postcode7',
+                'city' => 'city8',
+                'phone' => 'phone9',
+                'phoneMobile' => 'phoneMobile10',
+                'barcode' => '10101'
+            ]
+            , $shipmentInformation);
+    }
+
 }
