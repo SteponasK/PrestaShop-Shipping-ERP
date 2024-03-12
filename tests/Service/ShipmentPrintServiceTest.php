@@ -13,28 +13,28 @@ use PHPUnit\Framework\TestCase;
 class ShipmentPrintServiceTest extends TestCase
 {
 
-public function testGetShipment()
-{
-    $shipment = new Shipment();
+    public function testGetShipment()
+    {
+        $shipment = new Shipment();
 
-    $mockRepository = $this->createMock(\Doctrine\Persistence\ObjectRepository::class);
+        $mockRepository = $this->createMock(\Doctrine\Persistence\ObjectRepository::class);
 
-    $mockRepository->expects($this->once())
-        ->method('find')
-        ->with(1)
-        ->willReturn($shipment);
+        $mockRepository->expects($this->once())
+            ->method('find')
+            ->with(1)
+            ->willReturn($shipment);
 
-    $entityManager = $this->createMock(EntityManagerInterface::class);
+        $entityManager = $this->createMock(EntityManagerInterface::class);
 
-    $entityManager->expects($this->once())
-        ->method('getRepository')
-        ->willReturn($mockRepository);
+        $entityManager->expects($this->once())
+            ->method('getRepository')
+            ->willReturn($mockRepository);
 
-    $shipmentPrintService = new ShipmentPrintService();
+        $shipmentPrintService = new ShipmentPrintService();
 
-    $result = $shipmentPrintService->getShipment($entityManager, 1);
+        $result = $shipmentPrintService->getShipment($entityManager, 1);
 
-    $this->assertInstanceOf(Shipment::class, $result);
-}
+        $this->assertInstanceOf(Shipment::class, $result);
+    }
 
 }
