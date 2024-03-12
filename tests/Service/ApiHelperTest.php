@@ -1,7 +1,8 @@
 <?php
 
 namespace Tests\Invertus\Academy\ApiHelper;
-require_once 'C:\Users\Steponas\Desktop\Academy-ERP\Academy-ERP\src\Service\ApiHelper.php';
+
+require_once './src/Service/ApiHelper.php';
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
