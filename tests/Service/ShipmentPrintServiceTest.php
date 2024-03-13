@@ -82,10 +82,4 @@ class ShipmentPrintServiceTest extends TestCase
         ];
         $this->assertInstanceOf(Dompdf::class, $shipmentPrintService->generatePdfFile($shipmentInformation));
     }
-
-    public function testgetBarcodeHtml(){
-        // assert if base64 barcode html key exists
-        // assert if returns string
-    }
-
 }
