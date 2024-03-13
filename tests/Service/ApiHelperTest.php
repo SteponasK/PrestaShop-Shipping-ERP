@@ -1,43 +1,44 @@
 <?php
 
-namespace Tests\Invertus\Academy\ApiHelperTest;
+namespace Tests\Invertus\Academy\ApiHelper;
 
-require_once './src/Service/ApiHelper.php';
-
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Request;
+
 use Invertus\Academy\ApiHelper\ApiHelper;
 
-class ApiHelperTest extends TestCase
+class ShipmentPrintServiceTest extends KernelTestCase
 {
-    private $apiHelper;
+    protected static $container;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
-        parent::setUp();
-        $this->apiHelper = new ApiHelper();
+        self::bootKernel();
+        self::$container = static::getContainer();
     }
-
     public function testGetData()
     {
-        $requestData = ['key' => 'value'];
+        $apiHelperService = self::$container->get(ApiHelper::class);
+        
+        $requestData = ['key1' => 'value1', 'key2' => 'value2'];
         $request = new Request([], [], [], [], [], [], json_encode($requestData));
+        $returnedData = $apiHelperService->getData($request);
 
-        $data = $this->apiHelper->getData($request);
-
-        $this->assertEquals($requestData, $data);
+        self::assertIsArray($returnedData);
+        self::assertSame($requestData, $returnedData);
     }
 
     public function testIsApiKeyValid()
     {
+        $apiHelperService = self::$container->get(ApiHelper::class);
         $_ENV['API_KEY'] = 'valid_api_key';
         
         $validRequest = new Request([], [], [], [], [], ['HTTP_AUTHORIZATION' => 'Bearer valid_api_key']);
-        $isValid = $this->apiHelper->isApiKeyValid($validRequest);
+        $isValid = $apiHelperService->isApiKeyValid($validRequest);
         $this->assertTrue($isValid);
 
          $invalidRequest = new Request([], [], [], [], [], ['HTTP_AUTHORIZATION' => 'Bearer invalid_api_key']);
-         $isValid = $this->apiHelper->isApiKeyValid($invalidRequest);
+         $isValid = $apiHelperService->isApiKeyValid($invalidRequest);
          $this->assertFalse($isValid);
     }
 }
