@@ -11,7 +11,7 @@ class ShipmentCreateServiceTest extends KernelTestCase
 {
     protected static $container;
     protected static EntityManagerInterface $entityManager;
-    protected static array $shipmentData;
+    protected static array $shipmentInformation;
 
     public function setUp(): void
     {
@@ -19,7 +19,7 @@ class ShipmentCreateServiceTest extends KernelTestCase
         self::$container = static::getContainer();
         self::$entityManager = self::$container->get(EntityManagerInterface::class);
         
-        self::$shipmentData = [
+        self::$shipmentInformation = [
             'country' => 'Lithuania',
             'company' => 'Test Company',
             'firstName' => 'John',
@@ -30,18 +30,19 @@ class ShipmentCreateServiceTest extends KernelTestCase
             'city' => 'Anytown',
             'phone' => '123-456-7890',
             'phoneMobile' => '+3706123123',
+            'barcode' => '10101'
         ];
     }
     public function testCreateShipment()
     {
         $shipmentCreateService = self::$container->get(ShipmentCreateService::class);
-        $shipmentCreateService->createShipment(self::$shipmentData, self::$entityManager);
+        $shipmentCreateService->createShipment(self::$shipmentInformation, self::$entityManager);
 
         $shipment = self::$entityManager->getRepository(Shipment::class)->findOneBy([
         'firstName' => 'John',
     ]);
         self::assertNotNull($shipment);
-        self::assertEquals(self::$shipmentData['firstName'], $shipment->getFirstName());
-        self::assertEquals(self::$shipmentData['address1'], $shipment->getAddress1());
+        self::assertEquals(self::$shipmentInformation['firstName'], $shipment->getFirstName());
+        self::assertEquals(self::$shipmentInformation['address1'], $shipment->getAddress1());
     }
 }
