@@ -18,6 +18,7 @@ class ShipmentCreateServiceTest extends KernelTestCase
         self::bootKernel();
         self::$container = static::getContainer();
         self::$entityManager = self::$container->get(EntityManagerInterface::class);
+        self::$entityManager->beginTransaction();
         
         self::$shipmentInformation = [
             'country' => 'Lithuania',
@@ -33,6 +34,12 @@ class ShipmentCreateServiceTest extends KernelTestCase
             'barcode' => '10101'
         ];
     }
+
+    public function tearDown(): void
+    {
+        self::$entityManager->rollback();
+    }
+    
     public function testCreateShipment()
     {
         $shipmentCreateService = self::$container->get(ShipmentCreateService::class);

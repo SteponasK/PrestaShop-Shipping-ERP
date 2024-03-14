@@ -21,6 +21,7 @@ class ShipmentPrintServiceTest extends KernelTestCase
         self::bootKernel();
         self::$container = self::getContainer();
         self::$entityManager = self::$container->get(EntityManagerInterface::class);
+        self::$entityManager->beginTransaction();
         self::$shipmentInformation = [
             'country' => 'Lithuania',
             'company' => 'Test Company',
@@ -34,6 +35,10 @@ class ShipmentPrintServiceTest extends KernelTestCase
             'phoneMobile' => '+3706123123',
             'barcode' => '10101'
         ];
+    }
+    public function tearDown(): void
+    {
+        self::$entityManager->rollback();
     }
 
     public function testGetShipment()
