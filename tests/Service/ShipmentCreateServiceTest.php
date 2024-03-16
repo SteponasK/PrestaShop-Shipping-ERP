@@ -30,8 +30,7 @@ class ShipmentCreateServiceTest extends KernelTestCase
             'postcode' => '12345',
             'city' => 'Anytown',
             'phone' => '123-456-7890',
-            'phoneMobile' => '+3706123123',
-            'barcode' => '10101'
+            'phoneMobile' => '+3706123123'
         ];
     }
 
