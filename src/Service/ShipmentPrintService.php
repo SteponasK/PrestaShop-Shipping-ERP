@@ -4,7 +4,6 @@ namespace Invertus\Academy\ShipmentPrintService;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-use Symfony\Component\HttpFoundation\Request;
 
 use Invertus\Academy\Entity\Shipment;
 
@@ -57,7 +56,18 @@ class ShipmentPrintService
     private function addDataToPdf(Dompdf $pdf, array $shipmentInformation): void
     {
         
-        $html = '<table border="1" width="50%" style="margin: 0 auto; text-align: center;">
+        $html = '
+        
+        <html>
+            <head>
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                 <style>
+                    body { font-family: DejaVu Sans; }
+                </style>
+            </head>';
+
+        $html .= '<body>
+        <table border="1" width="50%" style="margin: 0 auto; text-align: center;">
         <tr>
             <th>Field</th>
             <th>Value</th>
@@ -77,7 +87,7 @@ class ShipmentPrintService
         $html .='</table>';
         $html .= '<br>';
         $html .= $this->getBarcodeHTML($shipmentInformation['barcode']);
-
-        $pdf->loadHtml($html);
+        $html .= '</body>';
+        $pdf->loadHtml($html, 'UTF-8');
     }
 }
