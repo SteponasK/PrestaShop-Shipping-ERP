@@ -39,7 +39,7 @@ class ShipmentCreateServiceTest extends KernelTestCase
     {
         self::$entityManager->rollback();
     }
-    
+
     public function testCreateShipment()
     {
         $shipmentCreateService = self::$container->get(ShipmentCreateService::class);
@@ -49,7 +49,11 @@ class ShipmentCreateServiceTest extends KernelTestCase
         'firstName' => 'John',
     ]);
         self::assertNotNull($shipment);
-        self::assertEquals(self::$shipmentInformation['firstName'], $shipment->getFirstName());
-        self::assertEquals(self::$shipmentInformation['address1'], $shipment->getAddress1());
+
+        foreach (self::$shipmentInformation as $key => $value)
+        {
+            $getterMethod = 'get' . ucfirst($key);
+            self::assertEquals($value, $shipment->$getterMethod());
+        }
     }
 }
