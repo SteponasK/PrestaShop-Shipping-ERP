@@ -38,6 +38,9 @@ jobs:
       -
         name: Start services
         run: docker compose up --wait --no-build
+      - name: Setup tmate session
+      if: success() || failure()
+      uses: mxschmitt/action-tmate@v3
       -
         name: Check HTTP reachability
         run: curl -v -o /dev/null http://localhost
