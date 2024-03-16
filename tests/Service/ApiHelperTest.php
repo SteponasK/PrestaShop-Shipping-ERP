@@ -26,6 +26,14 @@ class ShipmentPrintServiceTest extends KernelTestCase
 
         self::assertIsArray($returnedData);
         self::assertSame($requestData, $returnedData);
+
+        $requestData = [];
+        $request = new Request([], [], [], [], [], [], json_encode($requestData));
+        $returnedData = $apiHelperService->getData($request);
+
+        self::assertIsArray($returnedData);
+        self::assertEmpty($returnedData);
+        self::assertSame($requestData, $returnedData);
     }
 
     public function testIsApiKeyValid()
