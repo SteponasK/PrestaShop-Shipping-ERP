@@ -24,12 +24,14 @@ class ShipmentController extends AbstractController
             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
         $data = $apiHelper->getData($request);
-        $shipmentCreateService->createShipment($data, $entityManager);
+        $id = $shipmentCreateService->createShipment($data, $entityManager);
         
         $response = new Response();
         $response->headers->set('Access-Control-Allow-Origin', '*'); 
         $response->headers->set('Access-Control-Allow-Methods', 'POST, OPTIONS'); 
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
+        $response->headers->set('ID', $id);
+        
         $response->setStatusCode(Response::HTTP_CREATED); 
         return $response; 
 
