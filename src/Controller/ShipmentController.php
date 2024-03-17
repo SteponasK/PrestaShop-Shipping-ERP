@@ -26,7 +26,13 @@ class ShipmentController extends AbstractController
         $data = $apiHelper->getData($request);
         $shipmentCreateService->createShipment($data, $entityManager);
         
-        return new Response('', Response::HTTP_CREATED);
+        $response = new Response();
+        $response->headers->set('Access-Control-Allow-Origin', '*'); 
+        $response->headers->set('Access-Control-Allow-Methods', 'POST, OPTIONS'); 
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
+        $response->setStatusCode(Response::HTTP_CREATED); 
+        return $response; 
+
     }
 
     #[Route('/api/shipment/save/', name: 'app_save_options', methods: ['OPTIONS'])]
@@ -34,10 +40,9 @@ class ShipmentController extends AbstractController
     {
         $response = new Response();
 
-        $response->headers->set('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
-        $response->headers->set('Access-Control-Allow-Methods', 'POST, OPTIONS'); // Allow POST and OPTIONS methods
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow Content-Type and Authorization headers
-
+        $response->headers->set('Access-Control-Allow-Origin', '*'); 
+        $response->headers->set('Access-Control-Allow-Methods', 'POST, OPTIONS'); 
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
         return $response;
     }
 
