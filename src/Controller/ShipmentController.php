@@ -30,8 +30,8 @@ class ShipmentController extends AbstractController
         $response->headers->set('Access-Control-Allow-Origin', '*'); 
         $response->headers->set('Access-Control-Allow-Methods', 'POST, OPTIONS'); 
         $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
-        $response->headers->set('ID', $id);
-        
+        $response->setContent($id);
+
         $response->setStatusCode(Response::HTTP_CREATED); 
         return $response; 
 
