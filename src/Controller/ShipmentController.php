@@ -29,6 +29,18 @@ class ShipmentController extends AbstractController
         return new Response('', Response::HTTP_CREATED);
     }
 
+    #[Route('/api/shipment/save/', name: 'app_save_options', methods: ['OPTIONS'])]
+    public function saveOptions(): Response
+    {
+        $response = new Response();
+
+        $response->headers->set('Access-Control-Allow-Origin', '*'); // Allow requests from any origin
+        $response->headers->set('Access-Control-Allow-Methods', 'POST, OPTIONS'); // Allow POST and OPTIONS methods
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Allow Content-Type and Authorization headers
+
+        return $response;
+    }
+
     #[Route('/api/shipment/print/{id}', name: 'app_print_shipment', methods: ['GET'])]
     public function print(Request $request, EntityManagerInterface $entityManager, ShipmentPrintService $shipmentPrintService, ApiHelper $apiHelper, int $id): Response
     {
