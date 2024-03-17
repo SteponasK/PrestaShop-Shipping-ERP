@@ -53,7 +53,7 @@ class ShipmentController extends AbstractController
     {
         if (!$apiHelper->isApiKeyValid($request))
         {
-            return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
+           return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
 
         $shipment = $shipmentPrintService->getShipment($entityManager, $id);
@@ -69,4 +69,15 @@ class ShipmentController extends AbstractController
 
        return new Response($pdf->output(), Response::HTTP_OK, ['Content-Type' => 'application/pdf',]);
     }  
+    #[Route('/api/shipment/print/{id}', name: 'app_print_options', methods: ['OPTIONS'])]
+    public function printOptions(int $id): Response
+    {
+        $response = new Response();
+
+        $response->headers->set('Access-Control-Allow-Origin', '*'); 
+        $response->headers->set('Access-Control-Allow-Methods', 'GET, OPTIONS'); 
+        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
+        $response->setStatusCode(200);
+        return $response;
+    }
 }
