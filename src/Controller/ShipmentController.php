@@ -26,26 +26,22 @@ class ShipmentController extends AbstractController
         $data = $apiHelper->getData($request);
         $id = $shipmentCreateService->createShipment($data, $entityManager);
         
-        $response = new Response();
-        $response->headers->set('Access-Control-Allow-Origin', '*'); 
-        $response->headers->set('Access-Control-Allow-Methods', 'POST, OPTIONS'); 
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
-        $response->setContent($id);
-
-        $response->setStatusCode(Response::HTTP_CREATED); 
-        return $response; 
+        return new Response($id, Response::HTTP_CREATED, [
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization'
+        ]);
 
     }
 
     #[Route('/api/shipment/save/', name: 'app_save_options', methods: ['OPTIONS'])]
     public function saveOptions(): Response
     {
-        $response = new Response();
-
-        $response->headers->set('Access-Control-Allow-Origin', '*'); 
-        $response->headers->set('Access-Control-Allow-Methods', 'POST, OPTIONS'); 
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
-        return $response;
+        return new Response('',Response::HTTP_OK, [
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'GET, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization'
+        ]);
     }
 
     #[Route('/api/shipment/print/{id}', name: 'app_print_shipment', methods: ['GET'])]
@@ -68,24 +64,22 @@ class ShipmentController extends AbstractController
         $pdf = $shipmentPrintService->generatePdfFile($shipmentInformation);
 
 
-        $response = new Response(base64_encode($pdf->output()), Response::HTTP_OK, [
+        return new Response(base64_encode($pdf->output()), Response::HTTP_OK, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="shipment_label.pdf"',
             'Access-Control-Allow-Origin' => '*',
             'Access-Control-Allow-Methods' => 'GET, OPTIONS',
             'Access-Control-Allow-Headers' => 'Content-Type, Authorization'
         ]);
-        return $response;
     }  
+    
     #[Route('/api/shipment/print/{id}', name: 'app_print_options', methods: ['OPTIONS'])]
     public function printOptions(int $id): Response
     {
-        $response = new Response();
-
-        $response->headers->set('Access-Control-Allow-Origin', '*'); 
-        $response->headers->set('Access-Control-Allow-Methods', 'GET, OPTIONS'); 
-        $response->headers->set('Access-Control-Allow-Headers', 'Content-Type, Authorization'); 
-        $response->setStatusCode(200);
-        return $response;
+        return new Response('',Response::HTTP_OK, [
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'GET, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization'
+        ]);
     }
 }
