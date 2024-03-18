@@ -24,9 +24,24 @@ class ShipmentController extends AbstractController
             return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
         $data = $apiHelper->getData($request);
-        $shipmentCreateService->createShipment($data, $entityManager);
+        $id = $shipmentCreateService->createShipment($data, $entityManager);
         
-        return new Response('', Response::HTTP_CREATED);
+        return new Response($id, Response::HTTP_CREATED, [
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'POST, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization'
+        ]);
+
+    }
+
+    #[Route('/api/shipment/save/', name: 'app_save_options', methods: ['OPTIONS'])]
+    public function saveOptions(): Response
+    {
+        return new Response('',Response::HTTP_OK, [
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'GET, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization'
+        ]);
     }
 
     #[Route('/api/shipment/print/{id}', name: 'app_print_shipment', methods: ['GET'])]
@@ -34,7 +49,7 @@ class ShipmentController extends AbstractController
     {
         if (!$apiHelper->isApiKeyValid($request))
         {
-            return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
+           return new JsonResponse(['error' => 'Invalid API key'], Response::HTTP_UNAUTHORIZED);
         }
 
         $shipment = $shipmentPrintService->getShipment($entityManager, $id);
@@ -48,6 +63,23 @@ class ShipmentController extends AbstractController
 
         $pdf = $shipmentPrintService->generatePdfFile($shipmentInformation);
 
-       return new Response($pdf->output(), Response::HTTP_OK, ['Content-Type' => 'application/pdf',]);
+
+        return new Response(base64_encode($pdf->output()), Response::HTTP_OK, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="shipment_label.pdf"',
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'GET, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization'
+        ]);
     }  
+    
+    #[Route('/api/shipment/print/{id}', name: 'app_print_options', methods: ['OPTIONS'])]
+    public function printOptions(int $id): Response
+    {
+        return new Response('',Response::HTTP_OK, [
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'GET, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization'
+        ]);
+    }
 }

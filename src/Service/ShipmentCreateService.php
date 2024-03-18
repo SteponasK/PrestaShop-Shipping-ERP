@@ -8,7 +8,7 @@ use Invertus\Academy\Entity\Shipment;
 
 class ShipmentCreateService
 {
-    public function createShipment(array $data, EntityManagerInterface $entityManager) : void
+    public function createShipment(array $data, EntityManagerInterface $entityManager) : int
     {
         $shipment = new Shipment();
         
@@ -26,5 +26,7 @@ class ShipmentCreateService
 
         $entityManager->persist($shipment);
         $entityManager->flush();
+
+        return $shipment->getId();
     }
 }
