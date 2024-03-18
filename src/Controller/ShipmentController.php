@@ -67,7 +67,15 @@ class ShipmentController extends AbstractController
 
         $pdf = $shipmentPrintService->generatePdfFile($shipmentInformation);
 
-       return new Response($pdf->output(), Response::HTTP_OK, ['Content-Type' => 'application/pdf',]);
+
+        $response = new Response(base64_encode($pdf->output()), Response::HTTP_OK, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="shipment_label.pdf"',
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'GET, OPTIONS',
+            'Access-Control-Allow-Headers' => 'Content-Type, Authorization'
+        ]);
+        return $response;
     }  
     #[Route('/api/shipment/print/{id}', name: 'app_print_options', methods: ['OPTIONS'])]
     public function printOptions(int $id): Response
