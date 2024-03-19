@@ -3,11 +3,13 @@
 namespace Tests\Invertus\Academy\ShipmentPrintService;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\HttpKernel\KernelInterface; 
 
 use Doctrine\ORM\EntityManagerInterface;
 
 use Invertus\Academy\Entity\Shipment;
 use Invertus\Academy\ShipmentPrintService\ShipmentPrintService;
+use Invertus\Academy\Kernel;
 
 use Dompdf\Dompdf;
 
@@ -16,6 +18,12 @@ class ShipmentPrintServiceTest extends KernelTestCase
     protected static $container;
     protected static EntityManagerInterface $entityManager;
     protected static array $shipmentInformation;
+
+    protected static function createKernel(array $options = []): KernelInterface
+    {
+        return new Kernel('test', true);
+    }
+
     public function setUp(): void
     {
         self::bootKernel();
