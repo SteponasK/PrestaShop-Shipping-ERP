@@ -48,9 +48,9 @@ jobs:
       -
         name: Start services
         run: docker compose up --detach --no-build
-      # -
-      #   name: Check HTTP reachability
-      #   run: curl -L -v -o /dev/null http://localhost:5432
+      -
+        name: Check HTTP reachability
+        run: wget -O /dev/null https://localhost
       -
         name: Check HTTPS reachability
         run: wget -O /dev/null https://localhost
