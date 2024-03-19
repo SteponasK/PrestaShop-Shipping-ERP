@@ -9,6 +9,5 @@
 
 /.env*
 !/.env.dist
-phpunit.xml
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
