@@ -49,17 +49,17 @@ jobs:
         name: Start services
         run: docker compose up --detach --no-build
       -
-        name: Install Symfony Runtime
-        run: docker compose exec -T php composer require symfony/runtime
-      -
-        name: Wait for Symfony to Start
-        run: docker compose exec -T php bin/console doctrine:query:sql "SELECT 1" --env=test
-      -
         name: Check HTTP reachability
         run: curl -v -o /dev/null http://localhost
       -
         name: Check HTTPS reachability
         run: curl -vk -o /dev/null https://localhost
+      -
+        name: Install Symfony Runtime
+        run: docker compose exec -T php composer require symfony/runtime
+      -
+        name: Wait for Symfony to Start
+        run: docker compose exec -T php bin/console doctrine:query:sql "SELECT 1" --env=test
       -
         name: Create test database
         run: docker compose exec -T php bin/console doctrine:database:create --env=test
