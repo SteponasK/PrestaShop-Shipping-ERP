@@ -50,7 +50,7 @@ jobs:
         run: docker compose up --detach --no-build
       -
         name: Check HTTP reachability
-        run: wget -O /dev/null http://localhost
+        run: curl -L -v  --head --fail -o /dev/null http://localhost:5432
       -
         name: Check HTTPS reachability
         run: wget -O /dev/null https://localhost
