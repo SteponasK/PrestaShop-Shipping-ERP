@@ -6,12 +6,20 @@ use Doctrine\ORM\EntityManagerInterface;
 use Invertus\Academy\Entity\Shipment;
 use Invertus\Academy\ShipmentCreateService\ShipmentCreateService;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\HttpKernel\KernelInterface; 
+
+use Invertus\Academy\Kernel;
 
 class ShipmentCreateServiceTest extends KernelTestCase
 {
     protected static $container;
     protected static EntityManagerInterface $entityManager;
     protected static array $shipmentInformation;
+
+    protected static function createKernel(array $options = []): KernelInterface
+    {
+        return new Kernel('test', true);
+    }
 
     public function setUp(): void
     {
