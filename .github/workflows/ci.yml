@@ -49,6 +49,9 @@ jobs:
         name: Start services
         run: docker compose up --detach --no-build
       -
+        name: Wait for Symfony to Start
+        run: docker compose exec -T php bin/console doctrine:query:sql "SELECT 1" --env=test
+      -
         name: Check HTTP reachability
         run: curl -v -o /dev/null http://localhost
       -
