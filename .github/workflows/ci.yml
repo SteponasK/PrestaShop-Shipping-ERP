@@ -16,15 +16,15 @@ jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:13
-        env:
-          POSTGRES_DB: app_test
-          POSTGRES_USER: test_user
-          POSTGRES_PASSWORD: test_password
-        ports:
-          - 5432:5432
+    # services:
+    #   postgres:
+    #     image: postgres:13
+    #     env:
+    #       POSTGRES_DB: app_test
+    #       POSTGRES_USER: test_user
+    #       POSTGRES_PASSWORD: test_password
+    #     ports:
+    #       - 5432:5432
     steps:
       -
         name: Checkout
@@ -50,7 +50,7 @@ jobs:
         run: docker compose up --detach --no-build
       -
         name: Check HTTP reachability
-        run: curl -L -v  --head --fail -o /dev/null http://localhost:5432
+        run: curl -L -v --head --fail -o /dev/null http://localhost
       -
         name: Check HTTPS reachability
         run: wget -O /dev/null https://localhost
