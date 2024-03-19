@@ -50,7 +50,7 @@ jobs:
         run: docker compose up --detach --no-build
       -
         name: Check HTTP reachability
-        run: wget -O /dev/null https://localhost
+        run: wget -O /dev/null http://localhost
       -
         name: Check HTTPS reachability
         run: wget -O /dev/null https://localhost
