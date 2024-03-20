@@ -63,6 +63,10 @@ jobs:
       -
         name: Easy-Coding-Standarts Check
         run: docker compose exec -T php vendor/bin/ecs check src tests
+      -
+        name: PHPStan
+        run: docker compose exec -T php vendor/bin/phpstan analyse --level=0 src tests
+
   lint:
     name: Docker Lint
     runs-on: ubuntu-latest
