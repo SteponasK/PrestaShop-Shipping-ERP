@@ -60,6 +60,9 @@ jobs:
         name: Doctrine Schema Validator
         if: false # Remove this line if Doctrine ORM is installed
         run: docker compose exec -T php bin/console -e test doctrine:schema:validate
+      -
+        name: Easy-Coding-Standarts Check
+        run: docker compose exec -T php vendor/bin/ecs check src tests
   lint:
     name: Docker Lint
     runs-on: ubuntu-latest
