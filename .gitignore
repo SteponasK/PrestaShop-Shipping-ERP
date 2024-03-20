@@ -12,3 +12,6 @@
 phpunit.xml
 ###> symfony/phpunit-bridge ###
 .phpunit.result.cache
+###> phpstan/phpstan ###
+phpstan.neon
+###< phpstan/phpstan ###
