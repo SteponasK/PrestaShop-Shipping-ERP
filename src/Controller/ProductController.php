@@ -2,7 +2,6 @@
 
 namespace Invertus\Academy\Controller;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Invertus\Academy\Entity\Product;
 use Invertus\Academy\Repository\ProductRepository;
